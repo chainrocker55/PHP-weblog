@@ -18,7 +18,8 @@
     
     
      <?php		
-	 
+	 ini_set("mongo.native_long", 0);
+				ini_set("mongo.long_as_object", 1);
 	  if (isset($_GET['set'])) {
     					$_SESSION['key']=0;
 	  }

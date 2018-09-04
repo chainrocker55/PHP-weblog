@@ -40,6 +40,8 @@
 	
     </style>
      <?php
+     ini_set("mongo.native_long", 0);
+				ini_set("mongo.long_as_object", 1);
 	 					$user="";
 						$password="";
 						$name="";

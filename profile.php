@@ -40,6 +40,8 @@
 	
     </style>
      <?php
+     ini_set("mongo.native_long", 0);
+        ini_set("mongo.long_as_object", 1);
 	   $connection= new MongoClient("mongodb://chain:chain555@ds245082.mlab.com:45082/webblog");
       $db= $connection->webblog;
   $collection=$db->user;

@@ -18,6 +18,9 @@
     
     
      <?php		
+     			ini_set("mongo.native_long", 0);
+				ini_set("mongo.long_as_object", 1);
+
 				 session_start();
 	  							  function pre() {
 						if($_SESSION['key']>0){
