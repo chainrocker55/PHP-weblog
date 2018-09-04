@@ -1,0 +1,140 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ทดลองใช้งาน mongo ร่วมกับ PHP</title>
+</head>
+<body>
+<?php
+$connect=new Mongo();//Default http://localhost:27017
+$db = $connect->selectDB( "db_shopmall" );
+$collection = $db->selectCollection( "tb_category" );
+?>
+<?php
+if($_POST['bt_add']!=''){//Insert
+ $name=$_POST['name'];
+ //$parentId=$_POST['parent_id'];
+ if($name!=''){
+  //for($i=1;$i<=10000;$i++){//เพิ่มหลายแถว
+  //$insert[] = array( "parent_id"=>$parentId,"name" => $name);
+  //}
+  //$insert = array( "parent_id"=>$parentId,"name" => $name);//เพิ่มแถวเดียว
+  $insert = array("name" => $name);//แปลงข้อมูลให้อยู่ในรูปอาเรย์ก่อน name คือ ชื่อฟิลด์ $name คือ ข้อมูล
+  //การเพิ่มสมบูรณ์คืนค่ามาเป็น true
+  if($collection->insert($insert)){
+   echo '<center><font color="green">เพิ่มข้อมูลเรียบร้อยแล้ว</font></center>'; 
+  }
+ }else{
+  echo '<center><font color="red">ไม่สามารถเพิ่มข้อมูลได้</font></center>'; 
+ }
+}
+if($_POST['bt_edit']!=''){//Update
+ $name=$_POST['name2'];
+ //$parentId=$_POST['parent_id2'];
+ if($name!=''){
+  //$newdata =  array('$set'=>array('parent_id'=>$parentId,'name' => $name));
+  $newdata =  array('$set'=>array('name' => $name));
+  //การแก้ไขสมบูรณ์คืนค่ามาเป็น true
+  if($collection->update(array('_id' => new MongoId($_POST['editID'])), $newdata)){   
+   echo '<center><font color="green">แก้ไขข้อมูลเรียบร้อยแล้ว</font></center>'; 
+  }
+  }else{
+   echo '<center><font color="red">ไม่สามารถแก้ไขข้อมูลได้</font></center>'; 
+  }
+}
+if($_GET['delID']!=''){//Delete
+ //การลบสมบูรณ์คืนค่ามาเป็น true
+ if($collection->remove(array('_id' => new MongoId($_GET['delID'])))){
+  //$collection->remove(); หมายถึงลบทั้งหมด
+  echo '<center><font color="green">ลบข้อมูลเรียบร้อยแล้ว</font></center>';
+ }else{
+  echo '<center><font color="red">ไม่สามารถลบข้อมูลได้</font>></center>';
+ }
+}
+if($_GET['delAll']!=''){// All Delete
+ if($collection->remove()){//การลบสมบูรณ์คืนค่ามาเป็น true
+  echo '<center><font color="green">ลบข้อมูลทั้งหมดเรียบร้อยแล้ว</font></center>';
+ }else{
+  echo '<center><font color="red">ไม่สามารถลบข้อมูลทั้งหมดได้</font>></center>';
+ } 
+}
+if($_GET['q']!=''){//Search
+ $q=$_GET['q'];
+ $regex=array('name' => new MongoRegex("/$q/i"));//จะเหมือนกับคำสั่ง LIKE '%$q%'
+ $showCate = $collection->find($regex);//หมายถึง ให้เมธอด fine ค้นหา ตามคีย์เวิร์ดที่เป็นพารามิเตอร์
+}else{//หากไม่พบคีย์เวิร์ดที่ส่งมา
+ $showCate = $collection->find();//หมายถึง แสดงผลทั้งหมด
+}
+$totalRec=$showCate->count();//สร้างตัวแปรเก็บจำนวนแถวทั้งหมดที่ find ออกมา
+?>
+<form action="mongodb.php" method="post">
+  <?php if($_GET['editID']==''){//เพิ่มข้อมูล?>
+  <table width="500" border="1" align="center">
+    <tr>
+      <td colspan="2" align="center" bgcolor="#00CCFF"><strong>ประเภทสินค้า</strong></td>
+    </tr>
+    <?php if($_POST['bt_add']!=''){?>
+    <?php }?>
+    <tr>
+      <td><strong>ชื่อประเภท</strong></td>
+      <td><input type="text" name="name" id="name" /></td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><input type="submit" name="bt_add" id="bt_add" value="เพิ่มข้อมูล" /></td>
+    </tr>
+  </table>
+  <?php }else{//แก้ไขข้อมูล
+ $showEdit = $collection->findOne(array('_id' => new MongoId($_GET['editID'])));//แสดงข้อมูล 1 แถว
+?>
+  <table width="500" border="1" align="center">
+    <tr>
+      <td colspan="2" align="center" bgcolor="#99FF00"><strong>ประเภทสินค้า</strong></td>
+    </tr>
+    <tr>
+      <td><strong>ชื่อประเภท</strong></td>
+      <td><input type="text" name="name2" id="name2" value="<?=$showEdit['name']?>" /></td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><input type="submit" name="bt_edit" id="bt_edit" value="แก้ไข" />
+        <input type="hidden" name="editID" id="editID" value="<?=$showEdit['_id']?>" /></td>
+    </tr>
+  </table>
+  <?php }?>
+</form>
+<table width="750" border="1" align="center">
+  <tr>
+    <td align="center"><form id="searchForm" name="searchForm" method="get" action="">
+      <label for="q"></label>
+      ค้นหาข้อมูล
+  <input type="text" name="q" id="q" />
+  <input type="submit" name="bt_search" id="bt_search" value="ค้นหา" />
+    </form></td>
+    <td colspan="2" align="center"><a href="mongodb.php">กลับหน้าหลัก/เพิ่มข้อมูล</a> <br />
+จำนวน <?=$totalRec?> รายการ <br />
+<a href="" onclick="return confirm('ยืนยันการลบข้อมูลทั้งหมด');">ลบข้อมูลทั้งหมด</a></td>
+  </tr>
+  <tr>
+    <td width="550" align="center" bgcolor="#FFCCCC"><strong>ชื่อประเภท</strong></td>
+    <td colspan="2" align="center" bgcolor="#FFCCCC"><strong>จัดการ</strong></td>
+  </tr>
+  <?php 
+  if($totalRec>0){
+  foreach($showCate as $id => $val){
+ ?>
+  <tr>
+    <td><?=$val['name']?></td>
+    <td width="99" align="center"><a href="" onclick="return confirm('ยืนยันการลบข้อมูล');">[X]</a></td>
+    <td width="79" align="center"><a href="">แก้ไข</a></td>
+  </tr>
+  <?php } }else{?>
+  <tr>
+  <td colspan="3" align="center"><b>ไม่พบข้อมูล</b></td>
+  </tr>
+  <?php }?>
+</table>
+</body>
+</html>
+<?php $connect->close();//ปิดการเชื่อมต่อกับฐานข้อมูลทุกครั้ง?>
