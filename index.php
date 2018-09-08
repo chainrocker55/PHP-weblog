@@ -15,10 +15,10 @@
 	background-attachment:fixed;
 	 }
     </style>
-    <?php
-    echo phpinfo() ;
-     ?>
+
        <?php  
+        # get the mongo db name out of the en
+
 
 	  		try{
 				session_start();
