@@ -15,11 +15,15 @@
 	background-attachment:fixed;
 	 }
     </style>
+    <?php
+    exco phpinfo();
+     ?>
        <?php  
+
 	  		try{
 				session_start();
 				session_destroy();
-			    $connection= new getenv("mongodb://chain:chain555@ds245082.mlab.com:45082/webblog");
+			    $connection= new MongoClient("mongodb://chain:chain555@ds245082.mlab.com:45082/webblog");
  				 $db= $connection->webblog;
   			 $collection=$db->user;
 				 if((isset($_POST['username'])&&isset($_POST['password']))){
