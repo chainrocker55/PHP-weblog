@@ -15,11 +15,9 @@
 	background-attachment:fixed;
 	 }
     </style>
-    
-    
-      <?php
-	  
+       <?php  
 	  		try{
+	  			require_once __DIR__ . "/vendor/autoload.php";
 				session_start();
 				session_destroy();
 			    $connection= new MongoClient("mongodb://chain:chain555@ds245082.mlab.com:45082/webblog");
@@ -47,7 +45,7 @@
 				 
 			}catch(Exception $e){
 			}
- 	?>
+ 	?> 
 <script>
 if(window.back()){
 	header('Location:login.php');
