@@ -16,7 +16,7 @@
 	 }
     </style>
     <?php
-    exco phpinfo();
+    echo phpinfo() ;
      ?>
        <?php  
 
