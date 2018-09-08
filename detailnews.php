@@ -71,7 +71,7 @@ ini_set("mongo.native_long", 0);
   </div>
   <br>
    <form  method="post"> 
-  <a href="index2.php"  class="btn btn-primary" style="margin-left:560px">Home</a>
+  <a href="home.php"  class="btn btn-primary" style="margin-left:560px">Home</a>
   <a href="create.php" class="btn btn-success" style="margin-left:30px" >สร้างกระทู้</a> 
 &ensp;&ensp;&ensp; 
 <a href="userhome.php?set=true" class="btn btn-info">User Home</a> &ensp;&ensp;&ensp;

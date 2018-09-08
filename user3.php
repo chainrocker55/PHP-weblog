@@ -185,7 +185,7 @@
   </div>
  <br>
    <form name="eiei" method="get"> 
-  <a href="index.php"  class="btn btn-primary" style="margin-left:560px">Home</a>
+  <a href="home.php"  class="btn btn-primary" style="margin-left:560px">Home</a>
   <a href="create.php" class="btn btn-success" style="margin-left:30px" >สร้างกระทู้</a> 
 &ensp;&ensp;&ensp; 
 <a href="userhome.php?set=true" class="btn btn-info">User Home</a> &ensp;&ensp;&ensp;

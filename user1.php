@@ -163,7 +163,7 @@
   </div>
  <br>
    <form  method="get"> 
-  <a href="index.php"  class="btn btn-primary" style="margin-left:560px">Home</a>
+  <a href="home.php"  class="btn btn-primary" style="margin-left:560px">Home</a>
   <a href="create.php" class="btn btn-success" style="margin-left:30px" >สร้างกระทู้</a> 
   <a href="#" class="btn btn-danger" id="manage" >จัดการ User</a> 
 &ensp;&ensp;&ensp; 

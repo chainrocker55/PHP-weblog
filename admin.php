@@ -123,7 +123,7 @@
     <img  src="31344686_1704141333000568_3657415830821404672_n.png" >
     <br>
     <br>
-  <a href="index2.php"  class="btn btn-primary" style="margin-left:560px">Home</a>
+  <a href="home.php"  class="btn btn-primary" style="margin-left:560px">Home</a>
   <a href="create.php" class="btn btn-success" style="margin-left:30px" >สร้างกระทู้</a> 
 &ensp;&ensp;&ensp; 
 <a href="userhome.php?set=true" class="btn btn-info">User Home</a> &ensp;&ensp;&ensp;

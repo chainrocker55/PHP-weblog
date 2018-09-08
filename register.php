@@ -44,7 +44,7 @@
 	  				"gender"=>$_POST['gender'],"email"=>$_POST['email'],"address"=>$_POST['address2'],"city"=>$_POST['city'],
 	  				"district"=>$_POST['district'],"province"=>$_POST['province'],"zipcode"=>$_POST['zipcode'],"status"=>"user",
 					"dayregister"=>date("d-m-Y")));
-	  				 header('Location:login.php');}
+	  				 header('Location:home.php');}
 		}else{
 			echo "<script type='text/javascript'>alert('กรุณากรอกข้อมูลให้ครบ');</script>";
 		}
