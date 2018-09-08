@@ -87,7 +87,7 @@
           </div>
           <div class="form-group col-md-6">
             <label for="inputAddress">Address</label>
-            <input name="address2" type="text" class="form-control" id="inputAddress" placeholder="ชื่อนามสกุล">
+            <input name="address2" type="text" class="form-control" id="inputAddress" placeholder="ที่อยู๋">
           </div>
           <div class="form-group col-md-6">
             <label for="inputCity">ตำบล</label>
