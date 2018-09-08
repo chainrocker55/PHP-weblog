@@ -37,7 +37,7 @@
 						 session_start();
 						 $_SESSION['username']=$_POST['username'];
 						 $_SESSION['status']=$log['status'];
-						header('Location:index2.php');
+						header('Location:home.php');
 						exit;
 					 }
 			
